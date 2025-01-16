@@ -38,7 +38,7 @@ namespace LinqToSql
             //InsertLectures();
             //InsertStudentLectureAssociations();
             //GetUniversityOfJohn();
-
+            //GetLecturesFromJohn();
 
 
 
@@ -151,7 +151,19 @@ namespace LinqToSql
             johnUniversityList.Add(johnUniversity);
             MainDataGrid.ItemsSource = johnUniversityList;
         }
+
+        public void GetLecturesFromJohn()
+        {
+            Student john = dataContext.Students.First(student => student.Name == "John");
+            var johnLectures = from studentLecture in dataContext.StudentLectures
+                               where studentLecture.StudentId == john.Id
+                               select studentLecture.Lecture;
+            MainDataGrid.ItemsSource = johnLectures;
+        }
+
+        
     }
+
 }
 
 
